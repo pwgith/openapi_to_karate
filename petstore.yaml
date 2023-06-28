@@ -1,0 +1,200 @@
+openapi: "3.0.0"
+info:
+  title: Test Data Manager API
+  version: "1.0"
+paths:
+  /requests:
+    get:
+      summary: Get all requests that are not provisioned for the given test data type
+      parameters:
+        - name: test_data_type
+          in: query
+          description: Type of test data to return
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/unprovisioned_test_data_item'
+
+    post:
+      summary: Post a new request to be provisioned
+      operationId: addRequest
+      requestBody:
+        description: Request to add
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/request_test_data_item'
+      responses:
+        '200':
+          description: Request added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/test_data_request'
+
+  /requests/{request_id}:
+    get:
+      summary: Get the latest information on a request
+      operationId: get_request
+      parameters:
+        - name: request_id
+          in: path
+          description: ID of request to fetch
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get the data for the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/test_data_request'
+
+  /data:
+    post:
+      summary: Update a request with provisioned data
+      operationId: store_data
+      requestBody:
+        description: Add the built test data to the manager
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/provisioned_test_data_item'
+      responses:
+        '200':
+          description: Add data successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_test_data_item'
+                
+  /data/{data_id}: 
+    get:
+      summary: Update a request with provisioned data
+      operationId: get_data
+      parameters:
+        - name: data_id
+          in: path
+          description: ID of request to fetch
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Add data successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/full_test_data_item'
+
+
+components:
+  schemas:
+    test_data_request:
+      allOf:
+        - type: object
+          required:
+          - request_id
+          - request_status
+          - test_data_items
+          properties:
+            request_id:
+              type: string
+            request_status:
+              type: string
+            test_data_items:
+              type: array
+              items:
+                $ref: '#/components/schemas/full_test_data_item'
+
+    request_test_data_item:
+      type: object
+      required:
+        - test_data_type
+        - test_data_purpose
+      properties:
+        test_data_type:
+          type: string
+        test_data_purpose:
+          type: string
+
+    unprovisioned_test_data_item:
+      type: object
+      required:
+        - request_id
+        - request_index
+        - test_data_type
+        - test_data_purpose
+      properties:
+        request_id:
+          type: string
+        request_index:
+          type: string
+        test_data_type:
+          type: string
+        test_data_purpose:
+          type: string
+
+    full_test_data_item:
+      type: object
+      required:
+        - test_data_type
+        - test_data_status
+        - test_data_purpose
+        - test_data_index
+        - test_data_id
+      properties:
+        test_data_type:
+          type: string
+        test_data_status:
+          type: string
+        test_data_purpose:
+          type: string
+        test_data_index:
+          type: number
+        test_data_id:
+          type: string
+
+    new_test_data_item:
+      type: object
+      required:
+        - test_data_id
+      properties:
+        test_data_id:
+          type: string
+
+    provisioned_test_data_item:
+      type: object
+      required:
+        - test_data_id
+      properties:
+        test_data_id:
+          type: string
+        test_data_details:
+          type: object
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
