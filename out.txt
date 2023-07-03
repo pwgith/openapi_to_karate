@@ -1,0 +1,710 @@
+[H[2J[3J/pet
+   Method: put
+    Tags:  ['pet']
+    Summary: Update an existing pet
+    Description: Update an existing pet by Id
+    Operation Id: updatePet
+     Body: 
+       Description:  Update an existent pet in the store
+       Required:  True
+          JSON Schema:
+          Required:  ['name', 'photoUrls']
+          type:  object
+            XML:
+              Name:  pet
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 10
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: doggie
+               Description: No Description
+               Enum: []
+               Required: True
+             Property:
+               Name: category
+               Type: object
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+            XML:
+              Name:  category
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 1
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: Dogs
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: photoUrls
+               Type: array
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: True
+            XML:
+              Name:  No Name
+              Wrapped:  True
+                Items:
+                  Required:  None
+                  Type:  string
+            XML:
+              Name:  photoUrl
+              Wrapped:  No Wrapped
+             Property:
+               Name: tags
+               Type: array
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+            XML:
+              Name:  No Name
+              Wrapped:  True
+                Items:
+                  Required:  None
+                  Type:  object
+            XML:
+              Name:  tag
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: status
+               Type: string
+               Format: No Format
+               Example: No Example
+               Description: pet status in the store
+               Enum: ['available', 'pending', 'sold']
+               Required: False
+   Method: post
+    Tags:  ['pet']
+    Summary: Add a new pet to the store
+    Description: Add a new pet to the store
+    Operation Id: addPet
+     Body: 
+       Description:  Create a new pet in the store
+       Required:  True
+          JSON Schema:
+          Required:  ['name', 'photoUrls']
+          type:  object
+            XML:
+              Name:  pet
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 10
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: doggie
+               Description: No Description
+               Enum: []
+               Required: True
+             Property:
+               Name: category
+               Type: object
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+            XML:
+              Name:  category
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 1
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: Dogs
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: photoUrls
+               Type: array
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: True
+            XML:
+              Name:  No Name
+              Wrapped:  True
+                Items:
+                  Required:  None
+                  Type:  string
+            XML:
+              Name:  photoUrl
+              Wrapped:  No Wrapped
+             Property:
+               Name: tags
+               Type: array
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+            XML:
+              Name:  No Name
+              Wrapped:  True
+                Items:
+                  Required:  None
+                  Type:  object
+            XML:
+              Name:  tag
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: name
+               Type: string
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: status
+               Type: string
+               Format: No Format
+               Example: No Example
+               Description: pet status in the store
+               Enum: ['available', 'pending', 'sold']
+               Required: False
+/pet/findByStatus
+   Method: get
+    Tags:  ['pet']
+    Summary: Finds Pets by status
+    Description: Multiple status values can be provided with comma separated strings
+    Operation Id: findPetsByStatus
+     Parameter
+      Name:  status
+      Description:  status
+      Explode:  True
+      In:  query
+      Required:  False
+        Schema
+         Default:  available
+         Enum:  ['available', 'pending', 'sold']
+         Type:  string
+/pet/findByTags
+   Method: get
+    Tags:  ['pet']
+    Summary: Finds Pets by tags
+    Description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+    Operation Id: findPetsByTags
+     Parameter
+      Name:  tags
+      Description:  tags
+      Explode:  True
+      In:  query
+      Required:  False
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  array
+/pet/{petId}
+   Method: get
+    Tags:  ['pet']
+    Summary: Find pet by ID
+    Description: Returns a single pet
+    Operation Id: getPetById
+     Parameter
+      Name:  petId
+      Description:  petId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+   Method: post
+    Tags:  ['pet']
+    Summary: Updates a pet in the store with form data
+    Description: 
+    Operation Id: updatePetWithForm
+     Parameter
+      Name:  petId
+      Description:  petId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+     Parameter
+      Name:  name
+      Description:  name
+      Explode:  No Explode
+      In:  query
+      Required:  No Required
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+     Parameter
+      Name:  status
+      Description:  status
+      Explode:  No Explode
+      In:  query
+      Required:  No Required
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+   Method: delete
+    Tags:  ['pet']
+    Summary: Deletes a pet
+    Description: 
+    Operation Id: deletePet
+     Parameter
+      Name:  api_key
+      Description:  api_key
+      Explode:  No Explode
+      In:  header
+      Required:  False
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+     Parameter
+      Name:  petId
+      Description:  petId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+/pet/{petId}/uploadImage
+   Method: post
+    Tags:  ['pet']
+    Summary: uploads an image
+    Description: 
+    Operation Id: uploadFile
+     Body: 
+       Description:  No Description
+       Required:  None
+     Parameter
+      Name:  petId
+      Description:  petId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+     Parameter
+      Name:  additionalMetadata
+      Description:  additionalMetadata
+      Explode:  No Explode
+      In:  query
+      Required:  False
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+/store/inventory
+   Method: get
+    Tags:  ['store']
+    Summary: Returns pet inventories by status
+    Description: Returns a map of status codes to quantities
+    Operation Id: getInventory
+/store/order
+   Method: post
+    Tags:  ['store']
+    Summary: Place an order for a pet
+    Description: Place a new order in the store
+    Operation Id: placeOrder
+     Body: 
+       Description:  No Description
+       Required:  None
+          JSON Schema:
+          Required:  None
+          type:  object
+            XML:
+              Name:  order
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 10
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: petId
+               Type: integer
+               Format: int64
+               Example: 198772
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: quantity
+               Type: integer
+               Format: int32
+               Example: 7
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: shipDate
+               Type: string
+               Format: date-time
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: status
+               Type: string
+               Format: No Format
+               Example: approved
+               Description: Order Status
+               Enum: ['placed', 'approved', 'delivered']
+               Required: False
+             Property:
+               Name: complete
+               Type: boolean
+               Format: No Format
+               Example: No Example
+               Description: No Description
+               Enum: []
+               Required: False
+/store/order/{orderId}
+   Method: get
+    Tags:  ['store']
+    Summary: Find purchase order by ID
+    Description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+    Operation Id: getOrderById
+     Parameter
+      Name:  orderId
+      Description:  orderId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+   Method: delete
+    Tags:  ['store']
+    Summary: Delete purchase order by ID
+    Description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+    Operation Id: deleteOrder
+     Parameter
+      Name:  orderId
+      Description:  orderId
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  integer
+/user
+   Method: post
+    Tags:  ['user']
+    Summary: Create user
+    Description: This can only be done by the logged in user.
+    Operation Id: createUser
+     Body: 
+       Description:  Created user object
+       Required:  None
+          JSON Schema:
+          Required:  None
+          type:  object
+            XML:
+              Name:  user
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 10
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: username
+               Type: string
+               Format: No Format
+               Example: theUser
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: firstName
+               Type: string
+               Format: No Format
+               Example: John
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: lastName
+               Type: string
+               Format: No Format
+               Example: James
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: email
+               Type: string
+               Format: No Format
+               Example: john@email.com
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: password
+               Type: string
+               Format: No Format
+               Example: 12345
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: phone
+               Type: string
+               Format: No Format
+               Example: 12345
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: userStatus
+               Type: integer
+               Format: int32
+               Example: 1
+               Description: User Status
+               Enum: []
+               Required: False
+/user/createWithList
+   Method: post
+    Tags:  ['user']
+    Summary: Creates list of users with given input array
+    Description: Creates list of users with given input array
+    Operation Id: createUsersWithListInput
+     Body: 
+       Description:  No Description
+       Required:  None
+          JSON Schema:
+          Required:  None
+          type:  array
+/user/login
+   Method: get
+    Tags:  ['user']
+    Summary: Logs user into the system
+    Description: 
+    Operation Id: loginUser
+     Parameter
+      Name:  username
+      Description:  username
+      Explode:  No Explode
+      In:  query
+      Required:  False
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+     Parameter
+      Name:  password
+      Description:  password
+      Explode:  No Explode
+      In:  query
+      Required:  False
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+/user/logout
+   Method: get
+    Tags:  ['user']
+    Summary: Logs out current logged in user session
+    Description: 
+    Operation Id: logoutUser
+/user/{username}
+   Method: get
+    Tags:  ['user']
+    Summary: Get user by user name
+    Description: 
+    Operation Id: getUserByName
+     Parameter
+      Name:  username
+      Description:  username
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+   Method: put
+    Tags:  ['user']
+    Summary: Update user
+    Description: This can only be done by the logged in user.
+    Operation Id: updateUser
+     Body: 
+       Description:  Update an existent user in the store
+       Required:  None
+          JSON Schema:
+          Required:  None
+          type:  object
+            XML:
+              Name:  user
+              Wrapped:  No Wrapped
+             Property:
+               Name: id
+               Type: integer
+               Format: int64
+               Example: 10
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: username
+               Type: string
+               Format: No Format
+               Example: theUser
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: firstName
+               Type: string
+               Format: No Format
+               Example: John
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: lastName
+               Type: string
+               Format: No Format
+               Example: James
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: email
+               Type: string
+               Format: No Format
+               Example: john@email.com
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: password
+               Type: string
+               Format: No Format
+               Example: 12345
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: phone
+               Type: string
+               Format: No Format
+               Example: 12345
+               Description: No Description
+               Enum: []
+               Required: False
+             Property:
+               Name: userStatus
+               Type: integer
+               Format: int32
+               Example: 1
+               Description: User Status
+               Enum: []
+               Required: False
+     Parameter
+      Name:  username
+      Description:  username
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
+   Method: delete
+    Tags:  ['user']
+    Summary: Delete user
+    Description: This can only be done by the logged in user.
+    Operation Id: deleteUser
+     Parameter
+      Name:  username
+      Description:  username
+      Explode:  No Explode
+      In:  path
+      Required:  True
+        Schema
+         Default:  No Default
+         Enum:  None
+         Type:  string
